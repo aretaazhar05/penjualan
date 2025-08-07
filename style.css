@@ -1,0 +1,109 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.navbar a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navbar a:hover {
+  background-color: #575757;
+}
+
+/* Jasa Instalasi & Produk */
+.categories-container,
+.products-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.categories,
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.category,
+.product {
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.add-to-cart {
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart:hover {
+  background-color: #218838;
+}
+
+/* Load More Button */
+.load-more-container {
+  text-align: center;
+  margin: 2rem 0 4rem;
+}
+
+.load-more-btn {
+  background-color: #c28e78;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.load-more-btn a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Footer */
+footer {
+  background-color: #f1f1f1;
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer-icons img {
+  width: 40px;
+  margin: 0 10px;
+}
+
+.footer-links a,
+.footer-socials a {
+  display: inline-block;
+  margin: 5px 10px;
+  color: #333;
+  text-decoration: none;
+}

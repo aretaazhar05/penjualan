@@ -1,0 +1,120 @@
+body {
+  font-family: "Roboto", sans-serif; 
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #c28e78;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #ddd;
+}
+
+/* Main content */
+.product-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-details h1 {
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.product-details .price {
+  font-size: 20px;
+  color: #c28e78;
+  margin-bottom: 1rem;
+}
+
+.product-details .description {
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.product-details .buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.product-details button {
+  padding: 0.8rem 2rem;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-to-cart {
+  background-color: #333;
+  color: #fff;
+}
+
+.add-to-cart:hover {
+  background-color: #555;
+}
+
+.buy-whatsapp {
+  background-color: #25d366;
+  color: #fff;
+}
+
+.buy-whatsapp:hover {
+  background-color: #1ebe58;
+}
+
+/* Footer styling */
+footer {
+  background-color: #c28e78;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
