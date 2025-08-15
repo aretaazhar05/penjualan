@@ -120,7 +120,7 @@
   <!-- RIGHT: Ringkasan -->
   <aside>
     <section class="card p16">
-      <div class="kv"><span class="muted">Metode Pembayaran</span><b id="metodeTxt">DANA Linkage</b></div>
+      <div class="kv"><span class="muted">Metode Pembayaran</span><b id="metodeTxt">DANA</b></div>
       <div class="kv"><span class="muted">Total Pesanan</span><b id="totalPesananTxt">Rp5.000</b></div>
       <div class="kv"><span class="muted">Biaya Admin</span><b id="adminTxt">Rp256</b></div>
       <div class="kv grand"><span>Total Pembayaran</span><b id="grandTxt">Rp5.256</b></div>
@@ -132,7 +132,7 @@
   /* ===== KONFIG ===== */
   const WA_NUMBER   = "6282146212007"; // tanpa tanda +
   const UNIT_PRICE  = 5000;
-  const ADMIN_FEES  = { "DANA Linkage": 256, "OVO": 500, "GoPay": 500 };
+  const ADMIN_FEES  = { "DANA": 256, "QRIS": 0, "GoPay": 500 };
 
   /* ===== UTIL ===== */
   const rp = n => "Rp" + Math.round(n).toLocaleString("id-ID");
@@ -195,5 +195,6 @@
 </script>
 </body>
 </html>
+
 
 
