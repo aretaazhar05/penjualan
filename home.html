@@ -3,32 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nama Website dengan Logo</title>
+  <title>Poster Panel Bot</title>
   <style>
     body {
-      text-align: center; /* supaya logo & teks di tengah */
       font-family: Arial, sans-serif;
-      margin-top: 50px;
+      background: linear-gradient(90deg, #ffcc80, #ffa726);
+      text-align: center;
+      padding: 50px;
     }
-    .logo {
-      max-width: 120px;  /* atur ukuran gambar/logo */
-      margin-bottom: 10px; /* jarak logo ke teks */
+    .poster {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: inline-block;
     }
-    .website-name {
-      font-size: 24px;
+    .poster img {
+      max-width: 120px;  /* ukuran logo */
+      margin-bottom: 10px;
+    }
+    .website {
+      font-size: 20px;
       font-weight: bold;
-      color: #0077cc; /* warna teks */
+    }
+    .website span {
+      color: #00aaff; /* warna biru seperti marketplace */
     }
   </style>
 </head>
 <body>
-
-  <!-- Gambar (logo) di atas -->
-  <img src="logo.png" alt="Logo Website" class="logo">
-
-  <!-- Nama website di bawah gambar -->
-  <div class="website-name">
-    romimarketplace.biz.id
+  <div class="poster">
+    <!-- Gambar di atas nama website -->
+    <img src="logo.png" alt="Logo Website">
+    <div class="website">Romi<span>Marketplace.biz.id</span></div>
   </div>
   
 </body>
