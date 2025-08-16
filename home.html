@@ -1,84 +1,44 @@
-n<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Romi Store</title>
-  <link rel="stylesheet" href="body.css">
+  <title>Poster Panel Bot</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Navbar */
-    .navbar {
-      background-color: #333;
-      overflow: hidden;
-      padding: 1rem;
-    }
-
-    .navbar a {
-      float: left;
-      color: white;
+      background: linear-gradient(90deg, #ffcc80, #ffa726);
       text-align: center;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      font-size: 16px;
+      padding: 50px;
     }
-
-    .navbar a:hover {
-      background-color: #575757;
-    }
-
-    /* Login/Daftar Section */
-    .auth-section {
-      background-color: #f9f9f9;
-      padding: 2rem;
-      border-top: 1px solid #ddd;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: 2rem auto;
-      padding: 20px;
-    }
-
-    input,
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-
-    .box {
-      border: 1px solid #ccc;
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    footer {
-      background-color: #f1f1f1;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .footer-icons img {
-      width: 40px;
-      margin: 0 10px;
-    }
-
-    .footer-links a,
-    .footer-socials a {
+    .poster {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       display: inline-block;
-      margin: 5px 10px;
-      color: #333;
-      text-decoration: none;
+    }
+    .poster img {
+      max-width: 120px;  /* ukuran logo */
+      margin-bottom: 10px;
+    }
+    .website {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .website span {
+      color: #00aaff; /* warna biru seperti marketplace */
     }
   </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- Gambar di atas nama website -->
+    <img src="logo.png" alt="Logo Website">
+    <div class="website">Romi<span>Marketplace.biz.id</span></div>
+  </div>
+  
+</body>
 </head>
 
 <body>
