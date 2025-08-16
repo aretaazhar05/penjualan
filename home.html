@@ -29,6 +29,73 @@
     .website span {
       color: #00aaff; /* warna biru seperti marketplace */
     }
+
+     /* Banner pemberitahuan */
+    .update-banner {
+      background-color: #4caf50;  /* hijau */
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 16px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .update-banner span {
+      flex: 1;
+    }
+
+    /* Tombol close (opsional) */
+    .update-banner .close-btn {
+      cursor: pointer;
+      margin-left: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Supaya konten tidak ketutup banner */
+    .content {
+      margin-top: 60px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Banner Update -->
+  <div class="update-banner" id="updateBanner">
+    <span>✅ Website ini selalu update untuk memberikan layanan terbaik!</span>
+    <div class="close-btn" onclick="closeBanner()">✕</div>
+  </div>
+
+  <!-- Konten Website -->
+  <div class="content">
+    <h1>Selamat Datang di Website Kami</h1>
+    <p>Konten website ditampilkan di sini...</p>
+  </div>
+
+  <script>
+    function closeBanner() {
+      let banner = document.getElementById("updateBanner");
+      banner.style.opacity = "0";
+      setTimeout(() => {
+        banner.style.display = "none";
+      }, 500);
+    }
+
+    // Auto close setelah 5 detik
+    setTimeout(() => {
+      closeBanner();
+    }, 5000);
+  </script>
+  
   </style>
 </head>
 <body>
