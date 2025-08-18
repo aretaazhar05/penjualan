@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Checkout 𝐂𝐀𝐏𝐂𝐔𝐓 Premium</title>
+<style>
+  :root{
+    --primary:#ff7a00; --primary-700:#ff6a00;
+    --ink:#0c1a33; --muted:#6b7a90; --line:#e9edf2; --chip:#707d8a;
+    --ok:#1faa59; --warn:#ff3b3b; --bg:#f7f8fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);font:14px/1.45 -apple-system,BlinkMacSystemFont,Segoe UI,Inter,Roboto,Arial,sans-serif;color:var(--ink);padding:18px}
+  .wrap{max-width:960px;margin:auto;display:grid;gap:20px;grid-template-columns:1fr 320px}
+  @media(max-width:980px){.wrap{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 3px rgba(8,15,30,.04);overflow:hidden}
+  .p16{padding:16px}
+  .media{padding:12px 12px 0}
+  .media img{width:100%;border-radius:10px;display:block}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+  .title{font-weight:800}
+  label{display:block;font-weight:700;margin:10px 16px 6px}
+  .input,.select,.area{display:block;margin:0 16px 12px;width:calc(100% - 32px);padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit}
+  .hint{color:var(--muted);font-size:12px;margin:-6px 16px 12px}
+  .inline{display:flex;align-items:center;gap:10px;margin:4px 16px 8px}
+  .ok{color:var(--ok);font-weight:800}
+  .stock b{color:#e16900}
+  .qty{display:flex;align-items:center;gap:8px;margin:6px 16px 12px}
+  .qbtn{width:36px;height:36px;border-radius:50%;border:0;background:var(--chip);color:#fff;font-size:20px;cursor:pointer}
+  .qnum{width:64px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px}
+  .subtotal{padding:10px 16px;text-align:right;font-size:20px;font-weight:900;color:var(--primary)}
+  .pay-btn{margin:0 16px 16px;width:calc(100% - 32px);background:var(--primary);border:0;color:#fff;font-weight:900;
+           border-radius:12px;padding:12px 14px;font-size:16px;cursor:pointer}
+  aside{position:sticky;top:16px}
+  .kv{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+  .kv:last-child{border-bottom:0}
+  .kv b{font-weight:800}
+  .grand{font-size:16px;font-weight:900}
+  .desc{background:#fff;border:1px solid var(--line);border-radius:12px;margin-top:18px}
+  .desc h3{margin:0;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .desc .content{padding:14px 16px;line-height:1.65;font-size:15px}
+  .red{color:var(--warn);font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- LEFT -->
+  <main>
+    <section class="card">
+      <!-- Gambar produk -->
+      <div class="media">
+        <!-- Opsi 1: Gambar LOKAL (simpan file di folder yang sama, mis. produk.jpg) -->
+        <img src="Image/Capcut.jpg" alt="Gambar Produk" id="productImage">
+        <!-- Opsi 2: Gambar ONLINE (contoh) -->
+        <!-- <img src="yt logo.png" alt="Gambar Produk"> -->
+      </div>
+
+      <!-- Judul & harga x qty -->
+      <div class="row">
+        <div class="title">1 Bulan Premium — 𝐂𝐀𝐏𝐂𝐔𝐓 Premium</div>
+        <div id="unitPriceText">Rp10.000 × 1</div>
+      </div>
+
+      <!-- Catatan -->
+      <label for="note">Catatan untuk Penjual (Optional)</label>
+      <textarea id="note" class="area" rows="2" placeholder="Catatan tambahan..."></textarea>
+
+      <!-- Stok & Waktu pengiriman -->
+      <div class="inline stock"><span>Stok: <b>Tersisa 999</b></span></div>
+      <div class="inline"><span>Pengiriman:</span> <span class="ok">Dikirim dalam 10 menit</span></div>
+
+      <!-- Qty -->
+      <div class="qty">
+        <button class="qbtn" id="minus">−</button>
+        <input id="qty" class="qnum" type="number" min="1" max="10" value="1">
+        <button class="qbtn" id="plus">+</button>
+      </div>
+
+      <!-- Metode Pembayaran -->
+      <label for="method">Metode Pembayaran</label>
+      <select id="method" class="select">
+        <option value="DANA">DANA</option>
+        <option value="QRIS">QRIS</option>
+        <option value="GoPay">GoPay</option>
+      </select>
+      <div class="hint">Biaya admin dapat berbeda tiap metode.</div>
+
+      <!-- Subtotal -->
+      <div class="subtotal" id="subtotalText">Rp10.000</div>
+
+      <!-- Tombol Beli -->
+      <button class="pay-btn" id="buyBtn">Beli Langsung</button>
+    </section>
+
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff; /* Latar belakang putih */
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+    .box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px 25px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    ol {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+    ol li {
+      margin-bottom: 8px;
+    }
+    strong {
+      font-weight: bold;
+    }
+    em {
+      font-style: italic;
+    }
+    .link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Cara Trading Upgrade Akun 𝐂𝐀𝐏𝐂𝐔𝐓</h2>
+    <ol>
+      <li>Lakukan pemesanan di ROMISTORE dan masukkan nama dan alamat email/Gmail kamu.</li>
+      <li>Lakukan pembayaran atas pesanan kamu.</li>
+      <li><strong>Periksa inbox email kamu,</strong> dan terima undangan menjadi 𝐂𝐀𝐏𝐂𝐔𝐓 Premium dengan klik link tersebut.</li>
+      <li><strong>Login ke 𝐂𝐀𝐏𝐂𝐔𝐓</strong> dengan akun yang sudah di upgrade oleh penjual.</li>
+      <li>Jika sudah sukses, kirim bukti screenshot untuk menyelesaikan pesanan kamu.</li>
+      <strong>Akun Private artinya 1 akun milik kamu sendiri dan Akun Sharing artinya 1 akun akan digunakan bersama pembeli lain dan kamu hanya diijinkan login 1 perangkat.</strong>
+    </ol>
+  </div>
+
+
+    <!-- Deskripsi Produk -->
+    <section class="desc">
+      <h3>Deskripsi Produk</h3>
+      <div class="content">
+        𝐂𝐀𝐏𝐂𝐔𝐓 𝐏𝐑𝐎 𝟏 𝐁𝐔𝐋𝐀𝐍 𝐏𝐑𝐈𝐕𝐀𝐓𝐄<br>
+        
+        <br>𝐊𝐄𝐔𝐍𝐓𝐔𝐍𝐆𝐀𝐍 :</br>
+        
+        <br>- SEMUA FITUR PRO TERBUKA</br>
+        
+        <br>- DAPAT STORAGE CLOUD 1 TB</br>
+        <br>- 1 AKUN 1 PEMBELI</br>
+        <br>- BISA CHANGE EMAIL</br>
+        <br>- BISA CHANGE PASSWORD</br>
+        <br>- DAPAT AKSES EMAIL</br>
+        
+        <br>𝙋𝘼𝙎𝙏𝙄𝙆𝘼𝙉 𝘼𝙋𝙇𝙄𝙆𝘼𝙎𝙄 𝘾𝘼𝙋𝘾𝙐𝙏 𝙎𝙐𝘿𝘼𝙃 𝙑𝙀𝙍𝙎𝙄 𝙏𝙀𝙍𝘽𝘼𝙍𝙐 𝙅𝙄𝙆𝘼 𝘽𝙀𝙇𝙐𝙈 𝙐𝙋𝘿𝘼𝙏𝙀 𝘿𝙐𝙇𝙐 𝘿𝙄 𝙋𝙇𝘼𝙔𝙎𝙏𝙊𝙍𝙀/𝘼𝙋𝙋𝙎𝙏𝙊𝙍𝙀</br>
+        
+        <br>🏷️ Cara membeli :</br>
+        - Harap cantumkan alamat email (gmail) dengan benar pada catatan pada saat membeli<br><br>
+        Pesanan anda akan DIPROSES<br>
+        Kemudian kami akan mengirimkan email undangan.<br><br>
+        💬 Jika terjadi masalah dalam proses upgrade harap chat ke kami secepatnya dan sebisa mungkin akan kami bantu untuk menyelesaikan 🙏
+      </div>
+    </section>
+  </main>
+
+  <!-- RIGHT: Ringkasan -->
+  <aside>
+    <section class="card p16">
+      <div class="kv"><span class="muted">Metode Pembayaran</span><b id="metodeTxt">DANA</b></div>
+      <div class="kv"><span class="muted">Total Pesanan</span><b id="totalPesananTxt">Rp10.000</b></div>
+      <div class="kv"><span class="muted">Biaya Admin</span><b id="adminTxt">Rp256</b></div>
+      <div class="kv grand"><span>Total Pembayaran</span><b id="grandTxt">Rp10.256</b></div>
+    </section>
+  </aside>
+</div>
+
+<script>
+  /* ===== KONFIG ===== */
+  const WA_NUMBER   = "6282146212007"; // tanpa tanda +
+  const UNIT_PRICE  = 10000;
+  const ADMIN_FEES  = { "DANA": 456, "QRIS": 1064, "GoPay": 534 };
+
+  /* ===== UTIL ===== */
+  const rp = n => "Rp" + Math.round(n).toLocaleString("id-ID");
+
+  /* ===== ELEMS ===== */
+  const qtyEl = document.getElementById("qty");
+  const minus = document.getElementById("minus");
+  const plus  = document.getElementById("plus");
+  const unitText = document.getElementById("unitPriceText");
+  const subtotalText = document.getElementById("subtotalText");
+  const metode = document.getElementById("method");
+  const metodeTxt = document.getElementById("metodeTxt");
+  const totalPesananTxt = document.getElementById("totalPesananTxt");
+  const adminTxt = document.getElementById("adminTxt");
+  const grandTxt = document.getElementById("grandTxt");
+  const emailEl = document.getElementById("email");
+  const noteEl  = document.getElementById("note");
+  const buyBtn  = document.getElementById("buyBtn");
+
+  function recalc(){
+    const q = Math.max(1, Math.min(10, parseInt(qtyEl.value||"1",10)));
+    qtyEl.value = q;
+    const subtotal = q * UNIT_PRICE;
+    const admin = ADMIN_FEES[metode.value] ?? 0;
+    const grand = subtotal + admin;
+
+    unitText.textContent = `${rp(UNIT_PRICE)} × ${q}`;
+    subtotalText.textContent = rp(subtotal);
+    metodeTxt.textContent = metode.value;
+    totalPesananTxt.textContent = rp(subtotal);
+    adminTxt.textContent = rp(admin);
+    grandTxt.textContent = rp(grand);
+  }
+  recalc();
+
+  plus.addEventListener("click", ()=>{ qtyEl.value = +qtyEl.value + 1; recalc(); });
+  minus.addEventListener("click", ()=>{ qtyEl.value = Math.max(1, +qtyEl.value - 1); recalc(); });
+  qtyEl.addEventListener("input", recalc);
+  metode.addEventListener("change", recalc);
+
+  buyBtn.addEventListener("click", ()=>{
+    const q = parseInt(qtyEl.value,10);
+    const subtotal = q * UNIT_PRICE;
+    const admin = ADMIN_FEES[metode.value] ?? 0;
+    const grand = subtotal + admin;
+
+    const lines = [
+      "Halo, saya ingin memesan:",
+      "• Produk: 𝐂𝐀𝐏𝐂𝐔𝐓 Premium 1 Bulan",
+      `• Jumlah: ${q}`,
+      `• Harga: ${rp(UNIT_PRICE)} × ${q} = ${rp(subtotal)}`,
+      `• Biaya Admin: ${rp(admin)} (${metode.value})`,
+      `• Total: ${rp(grand)}`,
+      `• Email: ${emailEl.value || "-"}`,
+      noteEl.value ? `• Catatan: ${noteEl.value}` : ""
+    ].filter(Boolean).join("%0A");
+
+    window.open(`https://wa.me/${WA_NUMBER}?text=${lines}`, "_blank");
+  });
+</script>
+    <script>
+    document.onkeydown = function(e) {
+    if(event.keyCode == 123) {
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
+    return false;
+    }
+    }
+    </script>
+    <script type="text/javascript">
+        //Script for disabling right click on mouse
+        var message="Function Disabled!";
+        function clickdsb(){
+        if (event.button==2){
+        alert(message);
+        return false;
+        }
+        }
+        function clickbsb(e){
+        if (document.layers||document.getElementById&&!document.all){
+        if (e.which==2||e.which==3){
+        alert(message);
+        return false;
+        }
+        }
+        }
+        if (document.layers){
+        document.captureEvents(Event.MOUSEDOWN);
+        document.onmousedown=clickbsb;
+        }
+        else if (document.all&&!document.getElementById){
+        document.onmousedown=clickdsb;
+        }
+        
+        document.oncontextmenu=new Function("alert(message);return false")
+</script>
+</body>
+</html>
