@@ -105,14 +105,15 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Navbar */
+    /* Navbar container */
     .navbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 40px;
+      padding: 10px 30px;
       background-color: white;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
     }
 
     /* Logo */
@@ -120,7 +121,7 @@
       height: 40px;
     }
 
-    /* Menu */
+    /* Menu list */
     .navbar ul {
       list-style: none;
       display: flex;
@@ -129,37 +130,95 @@
       padding: 0;
     }
 
-    .navbar ul li {
-      display: inline;
-    }
-
     .navbar ul li a {
       text-decoration: none;
       color: #222;
       font-size: 16px;
-      transition: color 0.3s ease;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
+      border-radius: 4px;
     }
 
     .navbar ul li a:hover {
+      background-color: #f5f5f5;
       color: #0077cc;
+    }
+
+    .navbar ul li a.active {
+      background-color: #ffe0b2;
+      font-weight: bold;
+    }
+
+    /* Hamburger menu button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: #333;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 60px;
+        right: 30px;
+        width: 200px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        padding: 15px 0;
+      }
+
+      .navbar ul.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar">
     <!-- Logo -->
-    <img src="Romi store.png" alt="Logo">
+    <img src="logo.png" alt="Logo">
 
     <!-- Menu -->
-    <ul>
+    <ul id="menu">
       <li><a href="#about">About</a></li>
       <li><a href="#programs">Programs</a></li>
       <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="active">Contact</a></li>
     </ul>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('show');
+    });
+  </script>
 
   <!-- Jasa Instalasi -->
   <div class="categories-container">
