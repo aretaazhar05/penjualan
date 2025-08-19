@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hubungi Kami</title>
+  <style>
+    :root {
+      --brand:#16a34a;
+      --ink:#0f172a;
+      --muted:#64748b;
+      --ring:#93c5fd;
+      --bg:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+    .wrap{max-width:760px;margin:40px auto;padding:24px}
+    h1{font-size:clamp(22px,2.8vw,32px);margin:0 0 6px}
+    p.sub{color:var(--muted);margin:0 0 24px}
+    form{display:grid;gap:14px}
+    .row{display:grid;gap:14px;grid-template-columns:1fr}
+    @media (min-width:680px){.row{grid-template-columns:1fr 1fr}}
+    label{font-weight:600;margin-bottom:6px;display:block}
+    input,select,textarea{width:100%;padding:12px 14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;color:var(--ink);font-size:16px;outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--ring);box-shadow:0 0 0 4px #93c5fd33}
+    textarea{min-height:140px;resize:vertical}
+    .hint{font-size:12px;color:var(--muted)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    button, .ghost{cursor:pointer;border:0;border-radius:14px;padding:12px 18px;font-weight:700}
+    .whats{background:var(--brand);color:white;box-shadow:0 6px 20px rgba(22,163,74,.25)}
+    .ghost{background:#f1f5f9;color:var(--ink)}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#ecfdf5;border:1px solid #d1fae5;color:#065f46;border-radius:999px;padding:6px 12px;font-size:12px}
+    .counter{font-size:12px;color:var(--muted);text-align:right}
+    .req{color:#ef4444}
+    .card{border:1px solid #e5e7eb;border-radius:16px;padding:18px}
+    .footer{margin-top:18px;color:var(--muted);font-size:12px}
+    .demo{font-family:ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Form Komplain</h1>
+    <p class="sub">Isi formulir di bawah ini. Saat dikirim, pesan komplain otomatis dibuka di WhatsApp.</p>
+
+    <div class="badge">⚙️ Terhubung ke WhatsApp</div>
+
+    <form id="complainForm" class="card" autocomplete="on">
+      <div class="row">
+        <div>
+          <label for="nama">Nama <span class="req">*</span></label>
+          <input id="nama" name="nama" placeholder="Nama" required />
+        </div>
+        <div>
+          <label for="telp">No. WhatsApp (pelapor) <span class="req">*</span></label>
+          <input id="telp" name="telp" inputmode="tel" placeholder="08xxxxxxxxxx" required />
+          <div class="hint">Contoh: 081234567890</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="email">Email (opsional)</label>
+          <input id="email" name="email" type="email" placeholder="nama@email.com" />
+        </div>
+        <div>
+          <label for="orderId">ID Pesanan / Invoice</label>
+          <input id="orderId" name="orderId" placeholder="INV/12345" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="produk">Produk</label>
+          <input id="produk" name="produk" placeholder="Nama produk / paket" />
+        </div>
+        <div>
+          <label for="kategori">Kategori Kendala</label>
+          <select id="kategori" name="kategori">
+            <option value="Umum">Umum</option>
+            <option>Pesanan & Pembayaran</option>
+            <option>Pengiriman</option>
+            <option>Akun & Login</option>
+            <option>Garansi & Retur</option>
+            <option value="Teknis">Teknis</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label for="deskripsi">Deskripsi Komplain <span class="req">*</span></label>
+        <textarea id="deskripsi" name="deskripsi" placeholder="Jelaskan kendalanya secara detail..." maxlength="2000" required></textarea>
+        <div class="counter"><span id="chars">0</span>/2000</div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="tanggal">Tanggal Kejadian</label>
+          <input id="tanggal" name="tanggal" type="date" />
+        </div>
+        <div>
+          <label for="lokasi">Lokasi (opsional)</label>
+          <input id="lokasi" name="lokasi" placeholder="Kota/Kabupaten" />
+        </div>
+      </div>
+
+      <div class="hint">Catatan: WhatsApp via tautan tidak bisa mengirim lampiran otomatis. Sertakan foto/bukti setelah chat terbuka.</div>
+
+      <div class="actions">
+        <button type="submit" class="whats">Kirim ke WhatsApp</button>
+        <button type="reset" class="ghost">Reset</button>
+      </div>
+    </form>
+    <div class="footer">
+      <p>Form ini hanya untuk komplain. Untuk pertanyaan lain, silakan hubungi admin via WhatsApp.</p>
+      <p>© 2023 - Form Komplain</p>
+
+  <script>
+    // GANTI nomor berikut dengan nomor WhatsApp admin Anda (format internasional, tanpa +)
+    const ADMIN_WA = '6282146212007'; // TODO: ubah ke nomor Anda
+
+    const form = document.getElementById('complainForm');
+    const preview = document.getElementById('preview');
+    const deskripsi = document.getElementById('deskripsi');
+    const chars = document.getElementById('chars');
+
+    deskripsi.addEventListener('input', () => {
+      chars.textContent = deskripsi.value.length;
+      updatePreview();
+    });
+
+    form.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', updatePreview);
+      el.addEventListener('change', updatePreview);
+    });
+
+    function normalizePhone(id){
+      // terima 08xxxxxxxx -> ubah ke 628xxxxxxxxxx
+      let v = (id||'').replace(/[^0-9]/g,'');
+      if(v.startsWith('0')) v = '62' + v.slice(1);
+      return v;
+    }
+
+    function buildMessage(data){
+      const lines = [];
+      lines.push('*KOMPLAIN PELANGGAN*');
+      lines.push('');
+      lines.push(`Nama: ${data.nama}`);
+      if(data.telp) lines.push(`WA Pelapor: ${data.telp}`);
+      if(data.email) lines.push(`Email: ${data.email}`);
+      if(data.orderId) lines.push(`ID Pesanan: ${data.orderId}`);
+      if(data.produk) lines.push(`Produk: ${data.produk}`);
+      if(data.kategori) lines.push(`Kategori: ${data.kategori}`);
+      if(data.tanggal) lines.push(`Tanggal: ${data.tanggal}`);
+      if(data.lokasi) lines.push(`Lokasi: ${data.lokasi}`);
+      lines.push('');
+      lines.push('*Detail Komplain:*');
+      lines.push(data.deskripsi);
+      lines.push('');
+      lines.push('---');
+      lines.push('Dikirim dari Form Komplain Website');
+      return lines.join('\n');
+    }
+
+    function readForm(){
+      const f = new FormData(form);
+      return {
+        nama: f.get('nama')?.toString().trim() || '',
+        telp: f.get('telp')?.toString().trim() || '',
+        email: f.get('email')?.toString().trim() || '',
+        orderId: f.get('orderId')?.toString().trim() || '',
+        produk: f.get('produk')?.toString().trim() || '',
+        kategori: f.get('kategori')?.toString() || 'Umum',
+        deskripsi: f.get('deskripsi')?.toString().trim() || '',
+        tanggal: f.get('tanggal')?.toString() || '',
+        lokasi: f.get('lokasi')?.toString().trim() || ''
+      }
+    }
+
+    function updatePreview(){
+      const data = readForm();
+      preview.textContent = buildMessage(data);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = readForm();
+
+      if(!data.nama || !data.telp || !data.deskripsi){
+        alert('Nama, No. WhatsApp, dan Deskripsi wajib diisi.');
+        return;
+      }
+
+      const admin = normalizePhone(ADMIN_WA);
+      if(admin.length < 10){
+        alert('Nomor admin (ADMIN_WA) belum diatur dengan benar.');
+        return;
+      }
+
+      // normalisasi WA pelapor hanya untuk ditampilkan di pesan
+      data.telp = normalizePhone(data.telp);
+
+      const msg = encodeURIComponent(buildMessage(data));
+      const url = `https://wa.me/${admin}?text=${msg}`;
+
+      window.open(url, '_blank');
+    });
+
+    // render awal
+    updatePreview();
+  </script>
+</body>
+</html>
