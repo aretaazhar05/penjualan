@@ -12,78 +12,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Romi Store</title>
     
-      <style>
+     <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      overflow: hidden; /* supaya tidak bisa scroll saat popup muncul */
+      background: #000;
     }
 
-    /* Overlay gelap */
+    /* Overlay fullscreen */
     .popup {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
+      width: 100vw;
+      height: 100vh;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
     }
 
-    /* Kotak video */
-    .popup-content {
-      position: relative;
-      width: 80%;
-      max-width: 700px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-
-    /* Tombol close */
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 30px;
-      color: #fff;
-      cursor: pointer;
-      z-index: 1001;
-    }
-
     video {
       width: 100%;
-      height: auto;
-      display: block;
+      height: 100%;
+      object-fit: cover; /* isi full layar */
     }
   </style>
 </head>
 <body>
 
-  <!-- Popup -->
+  <!-- Popup Fullscreen -->
   <div class="popup" id="videoPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
-      <video id="popupVideo" autoplay muted playsinline preload="auto">
-        <source src="intro.mp4" type="video/mp4">
-        Browser Anda tidak mendukung video.
-      </video>
-    </div>
+    <video id="popupVideo" autoplay muted playsinline preload="auto">
+      <source src="intro.mp4" type="video/mp4">
+      Browser Anda tidak mendukung video.
+    </video>
   </div>
 
   <script>
     const popup = document.getElementById("videoPopup");
     const video = document.getElementById("popupVideo");
-
-    // Tutup popup manual
-    function closePopup() {
-      popup.style.display = "none";
-      video.pause();
-    }
 
     // Auto tampil popup saat halaman dibuka
     window.onload = function() {
@@ -93,7 +63,8 @@
 
     // Auto close setelah video selesai
     video.onended = function() {
-      closePopup();
+      popup.style.display = "none";
+      document.body.style.overflow = "auto"; // aktifkan scroll lagi setelah popup hilang
     };
   </script>
     
