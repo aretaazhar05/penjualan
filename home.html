@@ -1,576 +1,662 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-
-  <!-- Favicon Standar -->
-  <link rel="icon" type="image/png" href="Romi store.png">
-
-  <!-- Untuk iOS/Android (ikon lebih besar) -->
-  <link rel="apple-touch-icon" href="Romi store.png">
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
   
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Romi Store</title>
-  <style>
+    <!-- Favicon Standar -->
+    <link rel="icon" type="image/png" href="Romi store.png">
+  
+    <!-- Untuk iOS/Android (ikon lebih besar) -->
+    <link rel="apple-touch-icon" href="Romi store.png">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romi Store</title>
+    
+      <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(90deg, #ffcc80, #ffa726);
-      text-align: center;
-      padding: 50px;
-    }
-    .poster {
-      background: #fff;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: inline-block;
-    }
-    .poster img {
-      max-width: 120px;  /* ukuran logo */
-      margin-bottom: 10px;
-    }
-    .website {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .website span {
-      color: #00aaff; /* warna biru seperti marketplace */
-    }
-
-     /* Banner pemberitahuan */
-    .update-banner {
-      background-color: #4caf50;  /* hijau */
-      color: white;
-      text-align: center;
-      padding: 12px;
-      font-size: 16px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.5s ease;
-    }
-
-    .update-banner span {
-      flex: 1;
-    }
-
-    /* Tombol close (opsional) */
-    .update-banner .close-btn {
-      cursor: pointer;
-      margin-left: 10px;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    /* Supaya konten tidak ketutup banner */
-    .content {
-      margin-top: 60px;
-      padding: 20px;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Banner Update -->
-  <div class="update-banner" id="updateBanner">
-    <span>✅ Website ini selalu update untuk memberikan layanan terbaik!</span>
-    <div class="close-btn" onclick="closeBanner()">✕</div>
-  </div>
-  
-  <script>
-    function closeBanner() {
-      let banner = document.getElementById("updateBanner");
-      banner.style.opacity = "0";
-      setTimeout(() => {
-        banner.style.display = "none";
-      }, 500);
-    }
-
-    // Auto close setelah 5 detik
-    setTimeout(() => {
-      closeBanner();
-    }, 5000);
-  </script>
-  
-   <link rel="stylesheet" href="body.css">
-
-<style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    /* Navbar container */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 30px;
-      background-color: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: relative;
-    }
-
-    /* Logo */
-    .navbar img {
-      height: 40px;
-    }
-
-    /* Menu list */
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 30px;
       margin: 0;
       padding: 0;
     }
 
-    .navbar ul li a {
-      text-decoration: none;
-      color: #222;
-      font-size: 16px;
-      padding: 8px 12px;
-      transition: all 0.3s ease;
-      border-radius: 4px;
+    /* Overlay gelap */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
     }
 
-    .navbar ul li a:hover {
-      background-color: #f5f5f5;
-      color: #0077cc;
+    /* Kotak video */
+    .popup-content {
+      position: relative;
+      width: 80%;
+      max-width: 700px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    .navbar ul li a.active {
-      background-color: #ffe0b2;
-      font-weight: bold;
-    }
-
-    /* Hamburger menu button */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
+    /* Tombol close */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 30px;
+      color: #fff;
       cursor: pointer;
+      z-index: 1001;
     }
 
-    .menu-toggle span {
-      height: 3px;
-      width: 25px;
-      background: #333;
-      margin: 4px 0;
-      border-radius: 2px;
-      transition: 0.3s;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 768px) {
-      .navbar ul {
-        display: none;
-        flex-direction: column;
-        background: white;
-        position: absolute;
-        top: 60px;
-        right: 30px;
-        width: 200px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        padding: 15px 0;
-      }
-
-      .navbar ul.show {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <!-- Logo -->
-    <img src="Romi store.png" alt="Logo">
-
-    <!-- Menu -->
-    <ul id="menu">
-      <li><a href="Portfolio/index.html">About</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact" class="active">Contact</a></li>
-    </ul>
-
-    <!-- Hamburger -->
-    <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
+  <!-- Popup -->
+  <div class="popup" id="videoPopup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <video id="popupVideo" autoplay muted playsinline preload="auto">
+        <source src="video.mp4" type="video/mp4">
+        Browser Anda tidak mendukung video.
+      </video>
     </div>
-  </nav>
+  </div>
 
   <script>
-    const toggle = document.getElementById('menu-toggle');
-    const menu = document.getElementById('menu');
+    const popup = document.getElementById("videoPopup");
+    const video = document.getElementById("popupVideo");
 
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('show');
-    });
+    // Tutup popup manual
+    function closePopup() {
+      popup.style.display = "none";
+      video.pause();
+    }
+
+    // Auto tampil popup saat halaman dibuka
+    window.onload = function() {
+      popup.style.display = "flex";
+      video.play();
+    };
+
+    // Auto close setelah video selesai
+    video.onended = function() {
+      closePopup();
+    };
   </script>
-
-  <!-- Jasa Instalasi -->
-  <div class="categories-container">
-    <h2>Jasa Instalasi (maintenance)</h2>
-    <div class="categories">
-      <div class="category">
-        <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
-        <h3>Instalasi egg</h3>
-      </div>
-      <div class="category">
-        <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
-        <h3>Instalasi Panel</h3>
-      </div>
-      <div class="category">
-        <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
-        <h3>instalasi wings Pterodactyl</h3>
-      </div>
-      <div class="category">
-        <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
-        <h3>instalasi Thema Pterodactyl</h3>
-      </div>
+    
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(90deg, #ffcc80, #ffa726);
+        text-align: center;
+        padding: 50px;
+      }
+      .poster {
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        display: inline-block;
+      }
+      .poster img {
+        max-width: 120px;  /* ukuran logo */
+        margin-bottom: 10px;
+      }
+      .website {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .website span {
+        color: #00aaff; /* warna biru seperti marketplace */
+      }
+  
+       /* Banner pemberitahuan */
+      .update-banner {
+        background-color: #4caf50;  /* hijau */
+        color: white;
+        text-align: center;
+        padding: 12px;
+        font-size: 16px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease;
+      }
+  
+      .update-banner span {
+        flex: 1;
+      }
+  
+      /* Tombol close (opsional) */
+      .update-banner .close-btn {
+        cursor: pointer;
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+  
+      /* Supaya konten tidak ketutup banner */
+      .content {
+        margin-top: 60px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+  
+    <!-- Banner Update -->
+    <div class="update-banner" id="updateBanner">
+      <span>✅ Website ini selalu update untuk memberikan layanan terbaik!</span>
+      <div class="close-btn" onclick="closeBanner()">✕</div>
     </div>
-  </div>
-
-  <!-- Tombol Tampilkan Lebih Banyak -->
-  <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
-    <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-      <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
-    </button>
-  </div>
-
-  <!-- Produk Panel -->
-  <div class="products-container">
-    <h2>Panel Bot</h2>
-    <div class="products">
-      <div class="product">
-        <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
-        <h3>Panel Pterodactyl Public</h3>
-        <p></p>
-      </div>
-      <div class="product">
-        <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
-        <h3>Panel Pterodactyl Private (maintenance)</h3>
-        <p></p>
-      </div>
-      <div class="product">
-        <img src="owner-panel-pterodactyl.jpeg" alt="Product Image" class="product-image">
-        <h3>Owner Panel Pterodactyl Publik-Private (maintenance)</h3>
-        <p></p>
-        </button>
-      </div>
-      <div class="product">
-        <img src="Moderator.jpeg" alt="Product Image" class="product-image">
-        <h3>Moderator Panel Publik-Private (maintenance)</h3>
-        <p></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tombol Tampilkan Lebih Banyak -->
-  <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
-    <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-      <a href="Panel Bot Public.html" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
-    </button>
-  </div>
-
-  <!-- Produk Panel -->
-  <div class="products-container">
-    <h2>Nokos WhatsApp</h2>
-    <div class="products">
-      <div class="product">
-        <img src="Flag Rusia.webp" alt="Product Image" class="product-image">
-        <h3>Nokos Rusia</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/6282324462274?text=Saya%20mau%20pesan%20nokos wa%20rusia"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-      </div>
-      <div class="product">
-        <img src="Flag-indonesia.webp" alt="Product Image" class="product-image">
-        <h3>Nokos Indonesia</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/6283832438280?text=Saya%20mau%20pesan%20nokos wa%20indonesia"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-      </div>
-      <div class="product">
-        <img src="Flag Belanda.png" alt="Product Image" class="product-image">
-        <h3>Nokos Belanda</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos wa%20belanda"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-        </button>
-      </div>
-      <div class="product">
-        <img src="flag arab saudi.jpg" alt="Product Image" class="product-image">
-        <h3>Nokos Arab Saudi</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos wa%20arab saudi"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tombol Tampilkan Lebih Banyak -->
-  <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
-    <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-      <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
-    </button>
-  </div>
-
-  <!-- Produk Panel -->
-  <div class="products-container">
-    <h2>Nokos Telegram</h2>
-    <div class="products">
-      <div class="product">
-        <img src="Flag Rusia.webp" alt="Product Image" class="product-image">
-        <h3>Nokos Rusia</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20rusia"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-      </div>
-      <div class="product">
-        <img src="Flag-indonesia.webp" alt="Product Image" class="product-image">
-        <h3>Nokos Indonesia</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20indonesia"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-      </div>
-      <div class="product">
-        <img src="Flag Belanda.png" alt="Product Image" class="product-image">
-        <h3>Nokos Belanda</h3>
-        <p></p>
-        <a class="wa-button"
-        href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20belanda"
-        target="_blank">
-        📞 Pesan Sekarang
-      </a>
-        </button>
-      </div>
-      <div class="product">
-        <img src="flag arab saudi.jpg" alt="Product Image" class="product-image">
-        <h3>Nokos Arab Saudi</h3>
-        <p></p>
-        <a class="wa-button"
-     href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20arab saudi"
-     target="_blank">
-    📞 Pesan Sekarang
-  </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tombol Tampilkan Lebih Banyak -->
-  <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
-    <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-      <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
-    </button>
-  </div>
-
-  <!-- Produk Panel -->
-  <div class="products-container">
-    <h2>Software</h2>
-    <div class="products">
-      <div class="product">
-        <img src="yt logo.png" alt="Product Image" class="product-image">
-        <h3>YouTube Premium</h3>
-        <p></p>
-        <div class="buttons">
-          <a class="buy-payment"
-             href="anjay 5.html"
-             style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
-            💳 Pembayaran
-          </a>
-        </div>
-      </div>
-      <div class="product">
-        <img src="alight motion.png" alt="Product Image" class="product-image">
-        <h3>Alight Motion Premium</h3>
-        <p></p>
-        <div class="buttons">
-          <a class="buy-payment"
-         href="Pembayaran Software/Pembayaran am.html"
-         style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
-        💳 Pembayaran (maintenance)
-          </a>
-        </div>
-      </div>
-      <div class="product">
-        <img src="Canva.png" alt="Product Image" class="product-image">
-        <h3>Canva Premium</h3>
-        <p></p>
-        <div class="buttons">
-          <a class="buy-payment"
-         href="Pembayaran Software/Pembayaran Canva.html"
-         style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
-        💳 Pembayaran
-          </a>
-        </div>
-      </div>
-      <div class="product">
-        <img src="CapCut-Logo.png" alt="Product Image" class="product-image">
-        <h3>Capcut Premium</h3>
-        <p></p>
-        <div class="buttons">
-          <a class="buy-payment"
-         href="Pembayaran Software/Pembayaran Capcut.html"
-         style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
-        💳 Pembayaran (maintenance)
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tombol Tampilkan Lebih Banyak -->
-  <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
-    <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-      <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak (maintenance)</a>
-    </button>
-  </div>
-
-    <!-- Produk Panel -->
-  <div class="products-container">
-    <h2>Top Up Game (maintenance)</h2>
-    <div class="products">
-      <div class="product">
-        <img src="top up game free fire.webp" alt="Product Image" class="product-image">
-        <h3>Garena Free fire</h3>
-        <p></p>
-      </div>
-      <div class="product">
-        <img src="top up game free fire max.webp" alt="Product Image" class="product-image">
-        <h3>Garena free fire Max</h3>
-        <p></p>
-      </div>
-      <div class="product">
-        <img src="top up mobile legends.webp" alt="Product Image" class="product-image">
-        <h3>Mobile Legends: Bang Bang</h3>
-        <p></p>
-        </button>
-      </div>
-      <div class="product">
-        <img src="top up game call-of-duty-mobile.webp" alt="Product Image" class="product-image">
-        <h3>Call Of Duty mobile</h3>
-        <p></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tombol Tampilkan Lebih Banyak -->
-  <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
-    <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-      <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
-    </button>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-links">
-        <a href="#">Komplain Produk</a>
-        <a href="Galeri Pembayaran 2.html">Pembayaran</a>
-        <a href="#">Syarat & Ketentuan</a>
-      </div>
-      <div class="footer-socials">
-        <a href="#">Instagram</a>
-        <a href="https://youtube.com/officialalifgaming">YouTube</a>
-        <a href="https://whatsapp.com/channel/0029Vb6Ue7rAe5VvS3JFFg2C">Channel WhatsApp</a>
-        <a href="https://telegram.com/official_preset">Telegram</a>
-      </div>
-    </div>
-    <p>&copy; 2025 Romi Store. All Rights Reserved.</p>
-  </footer>
-  </script>
-  <script>
-    document.onkeydown = function(e) {
-    if(event.keyCode == 123) {
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-    return false;
-    }
-    }
+    
+    <script>
+      function closeBanner() {
+        let banner = document.getElementById("updateBanner");
+        banner.style.opacity = "0";
+        setTimeout(() => {
+          banner.style.display = "none";
+        }, 500);
+      }
+  
+      // Auto close setelah 5 detik
+      setTimeout(() => {
+        closeBanner();
+      }, 5000);
     </script>
-    <script type="text/javascript">
-        //Script for disabling right click on mouse
-        var message="Function Disabled!";
-        function clickdsb(){
-        if (event.button==2){
-        alert(message);
-        return false;
+    
+     <link rel="stylesheet" href="body.css">
+  
+  <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+  
+      /* Navbar container */
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 30px;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: relative;
+      }
+  
+      /* Logo */
+      .navbar img {
+        height: 40px;
+      }
+  
+      /* Menu list */
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .navbar ul li a {
+        text-decoration: none;
+        color: #222;
+        font-size: 16px;
+        padding: 8px 12px;
+        transition: all 0.3s ease;
+        border-radius: 4px;
+      }
+  
+      .navbar ul li a:hover {
+        background-color: #f5f5f5;
+        color: #0077cc;
+      }
+  
+      .navbar ul li a.active {
+        background-color: #ffe0b2;
+        font-weight: bold;
+      }
+  
+      /* Hamburger menu button */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+  
+      .menu-toggle span {
+        height: 3px;
+        width: 25px;
+        background: #333;
+        margin: 4px 0;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+  
+      /* Responsive styles */
+      @media (max-width: 768px) {
+        .navbar ul {
+          display: none;
+          flex-direction: column;
+          background: white;
+          position: absolute;
+          top: 60px;
+          right: 30px;
+          width: 200px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+          padding: 15px 0;
         }
+  
+        .navbar ul.show {
+          display: flex;
         }
-        function clickbsb(e){
-        if (document.layers||document.getElementById&&!document.all){
-        if (e.which==2||e.which==3){
-        alert(message);
-        return false;
+  
+        .menu-toggle {
+          display: flex;
         }
-        }
-        }
-        if (document.layers){
-        document.captureEvents(Event.MOUSEDOWN);
-        document.onmousedown=clickbsb;
-        }
-        else if (document.all&&!document.getElementById){
-        document.onmousedown=clickdsb;
-        }
-        
-        document.oncontextmenu=new Function("alert(message);return false")
-</script>
-</body>
-
-</html>
+      }
+    </style>
+  </head>
+  <body>
+  
+    <nav class="navbar">
+      <!-- Logo -->
+      <img src="Romi store.png" alt="Logo">
+  
+      <!-- Menu -->
+      <ul id="menu">
+        <li><a href="Portfolio/index.html">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact" class="active">Contact</a></li>
+      </ul>
+  
+      <!-- Hamburger -->
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  
+    <script>
+      const toggle = document.getElementById('menu-toggle');
+      const menu = document.getElementById('menu');
+  
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('show');
+      });
+    </script>
+  
+    <!-- Jasa Instalasi -->
+    <div class="categories-container">
+      <h2>Jasa Instalasi (maintenance)</h2>
+      <div class="categories">
+        <div class="category">
+          <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
+          <h3>Instalasi egg</h3>
+        </div>
+        <div class="category">
+          <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
+          <h3>Instalasi Panel</h3>
+        </div>
+        <div class="category">
+          <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
+          <h3>instalasi wings Pterodactyl</h3>
+        </div>
+        <div class="category">
+          <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
+          <h3>instalasi Thema Pterodactyl</h3>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tombol Tampilkan Lebih Banyak -->
+    <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
+      <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+        <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
+      </button>
+    </div>
+  
+    <!-- Produk Panel -->
+    <div class="products-container">
+      <h2>Panel Bot</h2>
+      <div class="products">
+        <div class="product">
+          <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
+          <h3>Panel Pterodactyl Public</h3>
+          <p></p>
+        </div>
+        <div class="product">
+          <img src="proxy-image.jpeg" alt="Product Image" class="product-image">
+          <h3>Panel Pterodactyl Private (maintenance)</h3>
+          <p></p>
+        </div>
+        <div class="product">
+          <img src="owner-panel-pterodactyl.jpeg" alt="Product Image" class="product-image">
+          <h3>Owner Panel Pterodactyl Publik-Private (maintenance)</h3>
+          <p></p>
+          </button>
+        </div>
+        <div class="product">
+          <img src="Moderator.jpeg" alt="Product Image" class="product-image">
+          <h3>Moderator Panel Publik-Private (maintenance)</h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tombol Tampilkan Lebih Banyak -->
+    <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
+      <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+        <a href="Panel Bot Public.html" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
+      </button>
+    </div>
+  
+    <!-- Produk Panel -->
+    <div class="products-container">
+      <h2>Nokos WhatsApp</h2>
+      <div class="products">
+        <div class="product">
+          <img src="Flag Rusia.webp" alt="Product Image" class="product-image">
+          <h3>Nokos Rusia</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/6282324462274?text=Saya%20mau%20pesan%20nokos wa%20rusia"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+        </div>
+        <div class="product">
+          <img src="Flag-indonesia.webp" alt="Product Image" class="product-image">
+          <h3>Nokos Indonesia</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/6283832438280?text=Saya%20mau%20pesan%20nokos wa%20indonesia"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+        </div>
+        <div class="product">
+          <img src="Flag Belanda.png" alt="Product Image" class="product-image">
+          <h3>Nokos Belanda</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos wa%20belanda"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+          </button>
+        </div>
+        <div class="product">
+          <img src="flag arab saudi.jpg" alt="Product Image" class="product-image">
+          <h3>Nokos Arab Saudi</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos wa%20arab saudi"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tombol Tampilkan Lebih Banyak -->
+    <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
+      <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+        <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
+      </button>
+    </div>
+  
+    <!-- Produk Panel -->
+    <div class="products-container">
+      <h2>Nokos Telegram</h2>
+      <div class="products">
+        <div class="product">
+          <img src="Flag Rusia.webp" alt="Product Image" class="product-image">
+          <h3>Nokos Rusia</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20rusia"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+        </div>
+        <div class="product">
+          <img src="Flag-indonesia.webp" alt="Product Image" class="product-image">
+          <h3>Nokos Indonesia</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20indonesia"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+        </div>
+        <div class="product">
+          <img src="Flag Belanda.png" alt="Product Image" class="product-image">
+          <h3>Nokos Belanda</h3>
+          <p></p>
+          <a class="wa-button"
+          href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20belanda"
+          target="_blank">
+          📞 Pesan Sekarang
+        </a>
+          </button>
+        </div>
+        <div class="product">
+          <img src="flag arab saudi.jpg" alt="Product Image" class="product-image">
+          <h3>Nokos Arab Saudi</h3>
+          <p></p>
+          <a class="wa-button"
+       href="https://wa.me/+6283832438280?text=Saya%20mau%20pesan%20nokos tele%20arab saudi"
+       target="_blank">
+      📞 Pesan Sekarang
+    </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tombol Tampilkan Lebih Banyak -->
+    <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
+      <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+        <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
+      </button>
+    </div>
+  
+    <!-- Produk Panel -->
+    <div class="products-container">
+      <h2>Software</h2>
+      <div class="products">
+        <div class="product">
+          <img src="yt logo.png" alt="Product Image" class="product-image">
+          <h3>YouTube Premium</h3>
+          <p></p>
+          <div class="buttons">
+            <a class="buy-payment"
+               href="anjay 5.html"
+               style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
+              💳 Pembayaran
+            </a>
+          </div>
+        </div>
+        <div class="product">
+          <img src="alight motion.png" alt="Product Image" class="product-image">
+          <h3>Alight Motion Premium</h3>
+          <p></p>
+          <div class="buttons">
+            <a class="buy-payment"
+           href="Pembayaran Software/Pembayaran am.html"
+           style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
+          💳 Pembayaran (maintenance)
+            </a>
+          </div>
+        </div>
+        <div class="product">
+          <img src="Canva.png" alt="Product Image" class="product-image">
+          <h3>Canva Premium</h3>
+          <p></p>
+          <div class="buttons">
+            <a class="buy-payment"
+           href="Pembayaran Software/Pembayaran Canva.html"
+           style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
+          💳 Pembayaran
+            </a>
+          </div>
+        </div>
+        <div class="product">
+          <img src="CapCut-Logo.png" alt="Product Image" class="product-image">
+          <h3>Capcut Premium</h3>
+          <p></p>
+          <div class="buttons">
+            <a class="buy-payment"
+           href="Pembayaran Software/Pembayaran Capcut.html"
+           style="display:inline-block; background:#c28e78; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; margin-left:10px;">
+          💳 Pembayaran (maintenance)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tombol Tampilkan Lebih Banyak -->
+    <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
+      <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+        <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak (maintenance)</a>
+      </button>
+    </div>
+  
+      <!-- Produk Panel -->
+    <div class="products-container">
+      <h2>Top Up Game (maintenance)</h2>
+      <div class="products">
+        <div class="product">
+          <img src="top up game free fire.webp" alt="Product Image" class="product-image">
+          <h3>Garena Free fire</h3>
+          <p></p>
+        </div>
+        <div class="product">
+          <img src="top up game free fire max.webp" alt="Product Image" class="product-image">
+          <h3>Garena free fire Max</h3>
+          <p></p>
+        </div>
+        <div class="product">
+          <img src="top up mobile legends.webp" alt="Product Image" class="product-image">
+          <h3>Mobile Legends: Bang Bang</h3>
+          <p></p>
+          </button>
+        </div>
+        <div class="product">
+          <img src="top up game call-of-duty-mobile.webp" alt="Product Image" class="product-image">
+          <h3>Call Of Duty mobile</h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tombol Tampilkan Lebih Banyak -->
+    <div class="load-more-container" style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
+      <button class="load-more-btn" style="background-color: #c28e78; color: #fff; padding: 0.8rem 2rem; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+        <a href="#" style="color: white; text-decoration: none;">Tampilkan Lebih Banyak</a>
+      </button>
+    </div>
+  
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">Komplain Produk</a>
+          <a href="Galeri Pembayaran 2.html">Pembayaran</a>
+          <a href="#">Syarat & Ketentuan</a>
+        </div>
+        <div class="footer-socials">
+          <a href="#">Instagram</a>
+          <a href="https://youtube.com/officialalifgaming">YouTube</a>
+          <a href="https://whatsapp.com/channel/0029Vb6Ue7rAe5VvS3JFFg2C">Channel WhatsApp</a>
+          <a href="https://telegram.com/official_preset">Telegram</a>
+        </div>
+      </div>
+      <p>&copy; 2025 Romi Store. All Rights Reserved.</p>
+    </footer>
+    </script>
+    <script>
+      document.onkeydown = function(e) {
+      if(event.keyCode == 123) {
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)){
+      return false;
+      }
+      if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
+      return false;
+      }
+      }
+      </script>
+      <script type="text/javascript">
+          //Script for disabling right click on mouse
+          var message="Function Disabled!";
+          function clickdsb(){
+          if (event.button==2){
+          alert(message);
+          return false;
+          }
+          }
+          function clickbsb(e){
+          if (document.layers||document.getElementById&&!document.all){
+          if (e.which==2||e.which==3){
+          alert(message);
+          return false;
+          }
+          }
+          }
+          if (document.layers){
+          document.captureEvents(Event.MOUSEDOWN);
+          document.onmousedown=clickbsb;
+          }
+          else if (document.all&&!document.getElementById){
+          document.onmousedown=clickdsb;
+          }
+          
+          document.oncontextmenu=new Function("alert(message);return false")
+  </script>
+  </body>
+  
+  </html>
