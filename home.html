@@ -16,11 +16,11 @@
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden; /* supaya tidak bisa scroll saat popup muncul */
+      overflow: hidden; /* cegah scroll saat popup */
       background: #000;
     }
 
-    /* Overlay fullscreen */
+    /* Fullscreen popup */
     .popup {
       position: fixed;
       top: 0;
@@ -37,13 +37,13 @@
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* isi full layar */
+      object-fit: cover; /* isi layar penuh */
     }
   </style>
 </head>
 <body>
 
-  <!-- Popup Fullscreen -->
+  <!-- Popup Video Fullscreen -->
   <div class="popup" id="videoPopup">
     <video id="popupVideo" autoplay muted playsinline preload="auto">
       <source src="intro.mp4" type="video/mp4">
@@ -55,16 +55,23 @@
     const popup = document.getElementById("videoPopup");
     const video = document.getElementById("popupVideo");
 
-    // Auto tampil popup saat halaman dibuka
+    // Tampilkan popup otomatis di semua device
     window.onload = function() {
       popup.style.display = "flex";
-      video.play();
+
+      // coba paksa play agar aman di HP (kadang butuh promise)
+      let playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("Autoplay dicegah browser:", err);
+        });
+      }
     };
 
-    // Auto close setelah video selesai
+    // Tutup popup otomatis setelah video selesai
     video.onended = function() {
       popup.style.display = "none";
-      document.body.style.overflow = "auto"; // aktifkan scroll lagi setelah popup hilang
+      document.body.style.overflow = "auto"; // aktifkan scroll setelah popup hilang
     };
   </script>
     
