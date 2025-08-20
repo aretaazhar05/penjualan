@@ -16,7 +16,7 @@
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden; /* cegah scroll saat popup */
+      overflow: hidden; /* cegah scroll saat popup tampil */
       background: #000;
     }
 
@@ -28,7 +28,7 @@
       width: 100vw;
       height: 100vh;
       background: #000;
-      display: flex;
+      display: none; /* default sembunyi */
       justify-content: center;
       align-items: center;
       z-index: 1000;
@@ -37,7 +37,7 @@
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* isi layar penuh */
+      object-fit: cover; /* isi full layar */
     }
   </style>
 </head>
@@ -55,23 +55,31 @@
     const popup = document.getElementById("videoPopup");
     const video = document.getElementById("popupVideo");
 
-    // Tampilkan popup otomatis di semua device
-    window.onload = function() {
-      popup.style.display = "flex";
+    // Cek apakah user sudah pernah menonton
+    const sudahNonton = localStorage.getItem("videoSudahNonton");
 
-      // coba paksa play agar aman di HP (kadang butuh promise)
-      let playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.log("Autoplay dicegah browser:", err);
-        });
+    window.onload = function() {
+      if (!sudahNonton) {
+        // Tampilkan popup pertama kali saja
+        popup.style.display = "flex";
+
+        let playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.log("Autoplay dicegah browser:", err);
+          });
+        }
+      } else {
+        // Jika sudah pernah nonton, jangan tampilkan popup lagi
+        document.body.style.overflow = "auto";
       }
     };
 
-    // Tutup popup otomatis setelah video selesai
+    // Auto close setelah video selesai
     video.onended = function() {
       popup.style.display = "none";
-      document.body.style.overflow = "auto"; // aktifkan scroll setelah popup hilang
+      document.body.style.overflow = "auto";
+      localStorage.setItem("videoSudahNonton", "true"); // simpan status
     };
   </script>
     
